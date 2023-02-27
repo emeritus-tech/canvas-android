@@ -65,6 +65,8 @@ android {
         PrivateData.merge(project, "student")
         buildConfigField "String", "PSPDFKIT_LICENSE_KEY", "\"$pspdfkitLicenseKey\""
 
+        resValue "string", "student_app_name", "Emeritus Student (Debug)"
+
         testBuildType = "debug"
     }
 
@@ -138,6 +140,7 @@ android {
             buildConfigField 'boolean', 'IS_DEBUG', 'false'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
 
+
             firebaseCrashlytics {
                 nativeSymbolUploadEnabled true
                 strippedNativeLibsDir 'build/intermediates/stripped_native_libs/release/out/lib'
@@ -145,6 +148,7 @@ android {
             }
 
             buildConfigField "String", "HEAP_APP_ID", "\"$heapProductionId\""
+            resValue "string", "student_app_name", "Emeritus Student"
 
             ext {
                 heapEnabled = true
