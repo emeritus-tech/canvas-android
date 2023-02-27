@@ -51,6 +51,7 @@ import com.instructure.canvasapi2.utils.ApiPrefs.protocol
 import com.instructure.canvasapi2.utils.ApiPrefs.refreshToken
 import com.instructure.canvasapi2.utils.ApiPrefs.user
 import com.instructure.canvasapi2.utils.Logger.d
+import com.instructure.loginapi.login.BuildConfig
 import com.instructure.loginapi.login.LoginNavigation
 import com.instructure.loginapi.login.R
 import com.instructure.loginapi.login.api.MobileVerifyAPI.mobileVerify
@@ -360,6 +361,25 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
             }
         }
 
+    private fun loadLoginWeb() {
+        var apiProtocol1 = BuildConfig.PROTOCOL
+        var domain1 = BuildConfig.DOMAIN
+
+
+        clientId = BuildConfig.CLIENT_ID
+        clientSecret = BuildConfig.CLIENT_SECRET
+        accountDomain.domain = domain1
+        //End - debug setting urls
+
+        buildAuthenticationUrl(
+            apiProtocol1,
+            accountDomain,
+            clientId,
+            false
+        )
+        loadAuthenticationUrl(apiProtocol1, domain1)
+    }
+
     private fun showErrorDialog(@StringRes resId: Int) {
         shouldShowProgressBar = false
         binding.webViewProgressBar.setGone()
@@ -431,7 +451,7 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
 //            builder.appendQueryParameter("redirect_uri", "https://canvas.instructure.com/login/oauth2/auth")
             builder.appendQueryParameter(
                 "redirect_uri",
-                "https://canvas.emeritus.org/login/canvas"
+                "${BuildConfig.BASE_URL}/login/canvas"
             )
         }
 
