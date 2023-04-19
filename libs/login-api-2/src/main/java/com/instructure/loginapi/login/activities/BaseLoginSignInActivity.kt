@@ -78,6 +78,9 @@ import retrofit2.Call
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
+import android.util.Base64
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
 abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSet {
     companion object {
@@ -344,11 +347,9 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
         var apiProtocol1 = BuildConfig.PROTOCOL
         var domain1 = BuildConfig.DOMAIN
 
-
-        clientId = BuildConfig.CLIENT_ID
-        clientSecret = BuildConfig.CLIENT_SECRET
+        clientId = decrypt(BuildConfig.CLIENT_ID)
+        clientSecret = decrypt(BuildConfig.CLIENT_SECRET)
         accountDomain.domain = domain1
-        //End - debug setting urls
 
         buildAuthenticationUrl(
             apiProtocol1,
@@ -357,6 +358,17 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
             false
         )
         loadAuthenticationUrl(apiProtocol1, domain1)
+    }
+
+
+    fun decrypt(encryptedValue: String): String {
+        val KEY = "canvaclassroomke"
+        val spec = SecretKeySpec(KEY.toByteArray(), "AES")
+        val cipher = Cipher.getInstance("AES")
+        cipher.init(Cipher.DECRYPT_MODE, spec)
+        val decodedBytes = Base64.decode(encryptedValue, Base64.DEFAULT)
+        val decryptedBytes = cipher.doFinal(decodedBytes)
+        return String(decryptedBytes)
     }
 
     private fun showErrorDialog(@StringRes resId: Int) {
