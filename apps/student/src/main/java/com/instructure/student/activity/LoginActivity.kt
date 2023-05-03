@@ -31,6 +31,9 @@ import com.instructure.pandautils.analytics.ScreenView
 import com.instructure.pandautils.utils.Const
 import com.instructure.pandautils.utils.Utils
 import com.instructure.student.R
+import com.instructure.canvasapi2.apis.AccountDomainAPI
+import com.instructure.canvasapi2.apis.ErrorReportAPI
+//import com.instructure.loginapi.login.util.BaseConfigurations
 import dagger.hilt.android.AndroidEntryPoint
 
 @ScreenView(SCREEN_VIEW_LOGIN)
@@ -61,6 +64,15 @@ class LoginActivity : BaseLoginInitActivity() {
             startActivity(InterwebsToApplication.createIntent(this, intent.data!!))
             finish()
         }
+//        BaseConfigurations.updateValues(
+//            protocol = BuildConfig.PROTOCOL,
+//            domain = BuildConfig.DOMAIN,
+//            baseUrl = BuildConfig.BASE_URL,
+//            clientId = BuildConfig.CLIENT_ID,
+//            clientSecret = BuildConfig.CLIENT_SECRET
+//        )
+        AccountDomainAPI.DEFAULT_DOMAIN = BuildConfig.BASE_URL
+        ErrorReportAPI.DEFAULT_DOMAIN = BuildConfig.BASE_URL
     }
 
     /**

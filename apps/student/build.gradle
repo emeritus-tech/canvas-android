@@ -139,7 +139,7 @@ android {
             shrinkResources true
             buildConfigField 'boolean', 'IS_DEBUG', 'false'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            resValue "string", "student_app_name", "Emeritus Classroom"
+
             firebaseCrashlytics {
                 nativeSymbolUploadEnabled true
                 strippedNativeLibsDir 'build/intermediates/stripped_native_libs/release/out/lib'
@@ -147,7 +147,7 @@ android {
             }
 
             buildConfigField "String", "HEAP_APP_ID", "\"$heapProductionId\""
-            resValue "string", "student_app_name", "Emeritus Student"
+
 
             ext {
                 heapEnabled = true
@@ -168,11 +168,34 @@ android {
             buildConfigField "boolean", "IS_TESTING", "true"
             dimension 'default'
             applicationIdSuffix ".qa"
+            resValue "string", "student_app_name", "Emeritus Classroom (Debug)"
+
+            Properties devProps = new Properties()
+
+            devProps.load(new FileInputStream(file("$rootDir/student/qa.properties")))
+
+            buildConfigField "String", "PROTOCOL", "\"${devProps.getProperty('PROTOCOL')}\""
+            buildConfigField "String", "DOMAIN", "\"${devProps.getProperty('DOMAIN')}\""
+            buildConfigField "String", "BASE_URL", "\"${devProps.getProperty('BASE_URL')}\""
+            buildConfigField "String", "CLIENT_ID", "\"${devProps.getProperty('CLIENT_ID')}\""
+            buildConfigField "String", "CLIENT_SECRET", "\"${devProps.getProperty('CLIENT_SECRET')}\""
+
+
         }
 
         prod {
             dimension 'default'
 
+            resValue "string", "student_app_name", "Emeritus Classroom"
+
+            Properties devProps = new Properties()
+            devProps.load(new FileInputStream(file("$rootDir/student/prod.properties")))
+
+            buildConfigField "String", "PROTOCOL", "\"${devProps.getProperty('PROTOCOL')}\""
+            buildConfigField "String", "DOMAIN", "\"${devProps.getProperty('DOMAIN')}\""
+            buildConfigField "String", "BASE_URL", "\"${devProps.getProperty('BASE_URL')}\""
+            buildConfigField "String", "CLIENT_ID", "\"${devProps.getProperty('CLIENT_ID')}\""
+            buildConfigField "String", "CLIENT_SECRET", "\"${devProps.getProperty('CLIENT_SECRET')}\""
         }
     }
 
