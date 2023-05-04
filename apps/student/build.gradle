@@ -42,6 +42,11 @@ configurations {
     all*.exclude group: 'org.apache.httpcomponents', module: 'httpclient'
 }
 
+def RELEASE_PROPERTIES = new Properties()
+RELEASE_PROPERTIES.load(new FileInputStream(file('./buildconfig/release-build.properties')))
+def DEBUG_PROPERTIES = new Properties()
+DEBUG_PROPERTIES.load(new FileInputStream(file('./buildconfig/debug-build.properties')))
+
 android {
     compileSdkVersion Versions.COMPILE_SDK
     buildToolsVersion Versions.BUILD_TOOLS
@@ -94,17 +99,25 @@ android {
     }
 
     signingConfigs {
+
         release {
-            storeFile file('../candroid.keystore')
-            storePassword System.getenv('KEYSTORE_PASSWORD')
-            keyAlias System.getenv('KEY_ALIAS')
-            keyPassword System.getenv('KEY_PASSWORD')
+            storeFile file(RELEASE_PROPERTIES['KEYSTORE_FILE'])
+            storePassword RELEASE_PROPERTIES['KEYSTORE_PASSWORD']
+            keyAlias RELEASE_PROPERTIES['KEY_ALIAS']
+            keyPassword RELEASE_PROPERTIES['KEY_PASSWORD']
+        }
+        debug {
+            storeFile file(DEBUG_PROPERTIES['KEYSTORE_FILE'])
+            storePassword DEBUG_PROPERTIES['KEYSTORE_PASSWORD']
+            keyAlias DEBUG_PROPERTIES['KEY_ALIAS']
+            keyPassword DEBUG_PROPERTIES['KEY_PASSWORD']
         }
     }
 
     buildTypes {
 
         debug {
+            signingConfig signingConfigs.debug
             testCoverageEnabled = coverageEnabled
             debuggable true
             minifyEnabled false
