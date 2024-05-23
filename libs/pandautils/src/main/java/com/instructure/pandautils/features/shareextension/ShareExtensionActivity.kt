@@ -184,6 +184,7 @@ abstract class ShareExtensionActivity : AppCompatActivity(), FileUploadDialogPar
     abstract fun exitActivity()
 
     override fun onBackPressed() {
+        super.onBackPressed()
         currentFragment?.dismissAllowingStateLoss()
         finish()
     }

@@ -117,9 +117,9 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(binding.root)
+        setContentView(binding.root)
 //        canvasLogin = intent!!.extras!!.getInt(Const.CANVAS_LOGIN, 0)
-        setContentView(R.layout.activity_sign_in)
+//        setContentView(R.layout.activity_sign_in)
 //        canvasLogin = intent!!.extras!!.getInt(Const.CANVAS_LOGIN, 0)
         canvasLogin = CANVAS_LOGIN_FLOW
         setupViews()
