@@ -83,7 +83,6 @@
             android:clearTaskOnLaunch="true"
             android:launchMode="singleTop"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/LoginFlowTheme.Splash_Student"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
