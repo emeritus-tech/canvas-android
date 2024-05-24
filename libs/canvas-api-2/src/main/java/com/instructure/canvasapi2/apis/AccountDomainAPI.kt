@@ -30,6 +30,7 @@ import retrofit2.http.Url
 
 object AccountDomainAPI {
     private const val DEFAULT_DOMAIN = "https://canvas.instructure.com/"
+//    private const val DEFAULT_DOMAIN = "https://canvas-test.emeritus.org/"
 
     interface AccountDomainInterface {
         @GET
@@ -44,12 +45,14 @@ object AccountDomainAPI {
 
         val adapter = RestBuilder(callback)
         val params = RestParams(
-                shouldIgnoreToken = true,
-                usePerPageQueryParam = true,
-                isForceReadFromNetwork = true,
-                domain = DEFAULT_DOMAIN
+            shouldIgnoreToken = true,
+            usePerPageQueryParam = true,
+            isForceReadFromNetwork = true,
+            domain = DEFAULT_DOMAIN
         )
 
-        callback.addCall(adapter.build(AccountDomainInterface::class.java, params).campusSearch(query)).enqueue(callback)
+        callback.addCall(
+            adapter.build(AccountDomainInterface::class.java, params).campusSearch(query)
+        ).enqueue(callback)
     }
 }

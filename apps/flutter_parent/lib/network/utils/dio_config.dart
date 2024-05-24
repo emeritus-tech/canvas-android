@@ -178,7 +178,7 @@ class DioConfig {
     PageSize pageSize = PageSize.none,
     bool useBetaDomain = false,
   }) {
-    var baseUrl = useBetaDomain ? 'https://canvas.beta.instructure.com/' : 'https://canvas.instructure.com/';
+    var baseUrl = useBetaDomain ? 'https://canvas.emeritus.org/';
     if (includeApiPath) baseUrl += 'api/v1/';
 
     return DioConfig(

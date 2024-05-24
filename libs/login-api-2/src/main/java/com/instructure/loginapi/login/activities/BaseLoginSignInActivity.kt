@@ -81,7 +81,8 @@ import javax.inject.Inject
 abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSet {
     companion object {
         const val ACCOUNT_DOMAIN = "accountDomain"
-        const val SUCCESS_URL = "/login/oauth2/auth?code="
+        //        const val SUCCESS_URL = "/login/oauth2/auth?code="
+        const val SUCCESS_URL = "/login/canvas?code="
         const val ERROR_URL = "/login/oauth2/auth?error=access_denied"
 
         init {
@@ -112,10 +113,33 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        canvasLogin = intent!!.extras!!.getInt(Const.CANVAS_LOGIN, 0)
+//        canvasLogin = intent!!.extras!!.getInt(Const.CANVAS_LOGIN, 0)
+        canvasLogin = CANVAS_LOGIN_FLOW
         setupViews()
         applyTheme()
-        beginSignIn(accountDomain)
+//        beginSignIn(accountDomain)
+        loadLoginWeb()
+    }
+
+    private fun loadLoginWeb() {
+        var apiProtocol1 = "https"
+        var domain1 = "canvas-test.emeritus.org"
+        apiProtocol1 = "https"
+
+        clientId = "10000000000024"
+        clientSecret =
+            "mFw7IJFwGOgzjq1mEBewi9sIlCY8oDYvyyzdjAP1rU71lRRA6u2NyX7Td8f0Skq1"
+        accountDomain.domain = domain1
+        //End - debug setting urls
+
+        buildAuthenticationUrl(
+            apiProtocol1,
+            //                        AccountDomain(domain = "canvas-test.emeritus.org"),
+            accountDomain,
+            clientId,
+            false
+        )
+        loadAuthenticationUrl(apiProtocol1, domain1)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -123,7 +147,7 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = accountDomain.domain
         toolbar.navigationIcon?.isAutoMirrored = true
-        toolbar.setupAsBackButton { finish() }
+//        toolbar.setupAsBackButton { finish() }
         webView = findViewById(R.id.webView)
         clearCookies()
         CookieManager.getInstance().setAcceptCookie(true)
@@ -213,8 +237,8 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
             if (errorResponse.statusCode == 400 && authenticationURL != null && request != null && request.url != null && authenticationURL == request.url.toString()) {
                 //If the institution does not support skipping the authentication screen this will catch that error and force the
                 //rebuilding of the authentication url with the authorization screen flow. Example: canvas.sfu.ca
-                buildAuthenticationUrl(protocol, accountDomain, clientId, true)
-                loadAuthenticationUrl(protocol, accountDomain.domain)
+//                buildAuthenticationUrl(protocol, accountDomain, clientId, true)
+//                loadAuthenticationUrl(protocol, accountDomain.domain)
             }
             super.onReceivedHttpError(view, request, errorResponse)
         }
@@ -404,7 +428,11 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
             //Skip mobile verify
             builder.appendQueryParameter("redirect_uri", "urn:ietf:wg:oauth:2.0:oob")
         } else {
-            builder.appendQueryParameter("redirect_uri", "https://canvas.instructure.com/login/oauth2/auth")
+//            builder.appendQueryParameter("redirect_uri", "https://canvas.instructure.com/login/oauth2/auth")
+            builder.appendQueryParameter(
+                "redirect_uri",
+                "https://canvas.emeritus.org/login/canvas"
+            )
         }
 
         //If an authentication provider is supplied we need to pass that along. This should only be appended if one exists.
