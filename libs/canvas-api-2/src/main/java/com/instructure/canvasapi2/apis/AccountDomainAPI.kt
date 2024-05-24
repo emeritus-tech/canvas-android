@@ -17,6 +17,7 @@
 
 package com.instructure.canvasapi2.apis
 
+import com.instructure.canvasapi2.BuildConfig
 import com.instructure.canvasapi2.StatusCallback
 import com.instructure.canvasapi2.builders.RestBuilder
 import com.instructure.canvasapi2.builders.RestParams

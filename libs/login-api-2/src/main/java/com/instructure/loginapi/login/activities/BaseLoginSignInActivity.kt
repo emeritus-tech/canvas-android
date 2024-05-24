@@ -122,27 +122,6 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
         loadLoginWeb()
     }
 
-    private fun loadLoginWeb() {
-        var apiProtocol1 = "https"
-        var domain1 = "canvas-test.emeritus.org"
-        apiProtocol1 = "https"
-
-        clientId = "10000000000024"
-        clientSecret =
-            "mFw7IJFwGOgzjq1mEBewi9sIlCY8oDYvyyzdjAP1rU71lRRA6u2NyX7Td8f0Skq1"
-        accountDomain.domain = domain1
-        //End - debug setting urls
-
-        buildAuthenticationUrl(
-            apiProtocol1,
-            //                        AccountDomain(domain = "canvas-test.emeritus.org"),
-            accountDomain,
-            clientId,
-            false
-        )
-        loadAuthenticationUrl(apiProtocol1, domain1)
-    }
-
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupViews() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
