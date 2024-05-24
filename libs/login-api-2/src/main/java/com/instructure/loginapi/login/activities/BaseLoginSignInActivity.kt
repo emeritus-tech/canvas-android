@@ -83,7 +83,7 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
     companion object {
         const val ACCOUNT_DOMAIN = "accountDomain"
         //        const val SUCCESS_URL = "/login/oauth2/auth?code="
-        const val SUCCESS_URL = "/login/canvas?code="
+        const val SUCCESS_URL = "/login?code="
         const val ERROR_URL = "/login/oauth2/auth?error=access_denied"
 
         init {
@@ -376,7 +376,7 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
 
     protected fun loadAuthenticationUrl(apiProtocol: String, domain: String?) {
         if (canvasLogin == CANVAS_LOGIN_FLOW) {
-            authenticationURL += "&canvas_login=1"
+//            authenticationURL += "&canvas_login=1"
         } else if (canvasLogin == MASQUERADE_FLOW) {
             // canvas_sa_delegated=1    identifies that we want to masquerade
             val cookieManager = CookieManager.getInstance()
@@ -430,7 +430,7 @@ abstract class BaseLoginSignInActivity : AppCompatActivity(), OnAuthenticationSe
 //            builder.appendQueryParameter("redirect_uri", "https://canvas.instructure.com/login/oauth2/auth")
             builder.appendQueryParameter(
                 "redirect_uri",
-                "${BuildConfig.BASE_URL}/login/canvas"
+                "${BuildConfig.BASE_URL}/login"
             )
         }
 
