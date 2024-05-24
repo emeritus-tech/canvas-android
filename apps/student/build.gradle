@@ -46,8 +46,10 @@ android {
     compileSdkVersion Versions.COMPILE_SDK
     buildToolsVersion Versions.BUILD_TOOLS
 
+    namespace 'com.instructure.student'
+
     defaultConfig {
-        applicationId "com.instructure.candroid"
+        applicationId "com.emeritus.candroid"
         minSdkVersion Versions.MIN_SDK
         targetSdkVersion Versions.TARGET_SDK
         versionCode = 261
@@ -153,17 +155,21 @@ android {
     flavorDimensions 'default'
 
     productFlavors {
-        dev {
-            dimension 'default'
-        }
+
+//        dev {
+//            dimension 'default'
+//            applicationIdSuffix ".dev"
+//        }
 
         qa {
             buildConfigField "boolean", "IS_TESTING", "true"
             dimension 'default'
+            applicationIdSuffix ".qa"
         }
 
         prod {
             dimension 'default'
+
         }
     }
 
@@ -250,7 +256,7 @@ dependencies {
     implementation project(path: ':DocumentScanner')
 
     /* Android Test Dependencies */
-    androidTestImplementation project(path: ':espresso')
+//    androidTestImplementation project(path: ':espresso')
     androidTestImplementation project(':dataseedingapi')
 
     /* Unit Test Dependencies */
@@ -269,7 +275,7 @@ dependencies {
     }
     implementation Libs.FIREBASE_MESSAGING
     implementation Libs.FIREBASE_CRASHLYTICS_NDK
-    implementation (Libs.FIREBASE_CRASHLYTICS) {
+    implementation(Libs.FIREBASE_CRASHLYTICS) {
         transitive = true
     }
 
@@ -380,8 +386,8 @@ if (coverageEnabled) {
         reports {
             // default path: /canvas-android/apps/teacher/build/reports/jacoco/firebaseJacoco/html/
             html.enabled true
-            csv.enabled  false
-            xml.enabled  false
+            csv.enabled false
+            xml.enabled false
         }
     }
 
